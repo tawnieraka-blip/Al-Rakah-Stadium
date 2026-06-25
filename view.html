@@ -94,7 +94,13 @@ r.slice(0,6).forEach((c,i)=>{
     }
     else if(i==3 && c){
 
-    td.textContent = c.substring(0,5);
+    const time = new Date(c);
+
+    td.textContent = time.toLocaleTimeString("ar-SA",{
+        hour:"numeric",
+        minute:"2-digit",
+        hour12:true
+    });
 
 }
     else{
