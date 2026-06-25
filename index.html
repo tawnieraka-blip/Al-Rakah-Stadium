@@ -1,166 +1,77 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>حجوزات ملعب جمعية الراكة</title>
+<title>ملعب جمعية الراكة</title>
 
 <style>
-
 *{
-box-sizing:border-box;
-font-family:Tahoma,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Tahoma,sans-serif;
 }
 
 body{
-
-margin:0;
-
-background:linear-gradient(135deg,#eef3f8,#dfe9f5);
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-padding:25px;
-
+    background:linear-gradient(135deg,#eef3f8,#dfe9f5);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .container{
-width:100%;
-max-width:450px;
-background:#fff;
-padding:20px;
-border-radius:25px;
-box-shadow:0 15px 35px rgba(0,0,0,.15);
-margin:10px;
-}
-
-h1{
-text-align:center;
-margin:0 0 20px;
-font-size:30px;
-color:#0b57d0;
-line-height:1.4;
+    background:#fff;
+    width:95%;
+    max-width:500px;
+    padding:35px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
 }
 
 .logo{
-display:block;
-width:120px;
-max-width:100%;
-margin:0 auto 10px;
+    width:140px;
+    margin-bottom:20px;
 }
 
-label{
-
-display:block;
-
-font-size:17px;
-
-font-weight:bold;
-
-margin-bottom:8px;
-
-color:#444;
-
+h1{
+    color:#0b57d0;
+    margin-bottom:35px;
+    font-size:32px;
 }
 
-input{
-
-width:100%;
-
-padding:16px;
-
-margin-bottom:18px;
-
-font-size:18px;
-
-border:1px solid #ddd;
-
-border-radius:12px;
-
-outline:none;
-
-transition:.3s;
-
+.btn{
+    display:block;
+    width:100%;
+    padding:18px;
+    margin:15px 0;
+    background:#0b57d0;
+    color:#fff;
+    text-decoration:none;
+    border-radius:14px;
+    font-size:22px;
+    font-weight:bold;
+    transition:.3s;
 }
 
-input:focus{
-
-border-color:#0b57d0;
-
-box-shadow:0 0 8px rgba(11,87,208,.25);
-
-}
-
-button{
-
-width:100%;
-
-padding:18px;
-
-font-size:20px;
-
-font-weight:bold;
-
-background:#0b57d0;
-
-color:#fff;
-
-border:none;
-
-border-radius:14px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-button:hover{
-
-background:#0846aa;
-
+.btn:hover{
+    background:#0846aa;
 }
 
 @media(max-width:600px){
+    h1{
+        font-size:26px;
+    }
 
-.container{
-padding:20px;
-border-radius:20px;
-}
+    .logo{
+        width:100px;
+    }
 
-.logo{
-width:100px;
-}
-
-h1{
-font-size:24px;
-line-height:1.4;
-}
-
-label{
-font-size:16px;
-}
-
-input{
-font-size:16px;
-padding:14px;
-}
-
-button{
-font-size:18px;
-padding:16px;
-}
-
+    .btn{
+        font-size:18px;
+    }
 }
 </style>
 
@@ -172,91 +83,17 @@ padding:16px;
 
 <img src="logo.png" class="logo">
 
-<h1>حجوزات ملعب جمعية الراكة</h1>
-<label>اسم الفريق</label>
+<h1>ملعب جمعية الراكة</h1>
 
-<input id="team" placeholder="اكتب اسم الفريق">
+<a href="booking.html" class="btn">
+📝 تسجيل فريق
+</a>
 
-<label>تاريخ الحجز</label>
-
-<input id="bookingDate" type="date">
-
-<label>وقت الدخول</label>
-
-<input id="checkIn" type="time">
-
-<label>عدد ساعات اللعب</label>
-
-<input id="hours" type="number" placeholder="مثال: 2">
-
-<label>المبلغ</label>
-
-<input id="amount" type="number" placeholder="مثال: 200">
-
-<button onclick="saveBooking()">
-
-حفظ الحجز
-
-</button>
+<a href="view.html" class="btn">
+📋 عرض الحجوزات
+</a>
 
 </div>
 
-<script>
-
-const URL="https://script.google.com/macros/s/AKfycbyJ-DfkH3qwNsY6fDD1VgzwD0ECYryu-l8GSHkH5sErkBuniGoAlqizFPlrtkuP17PXdA/exec";
-
-function saveBooking(){
-
-let date=document.getElementById("bookingDate").value;
-
-let day=new Date(date).toLocaleDateString(
-
-"ar-SA",
-
-{weekday:"long"}
-
-);
-
-fetch(URL,{
-
-method:"POST",
-
-body:JSON.stringify({
-
-team:document.getElementById("team").value,
-
-bookingDate:date,
-
-day:day,
-
-checkIn:document.getElementById("checkIn").value,
-
-hours:document.getElementById("hours").value,
-
-amount:document.getElementById("amount").value
-
-})
-
-})
-
-.then(()=>{
-
-alert("تم حفظ الحجز بنجاح ✅");
-
-location.reload();
-
-})
-
-.catch(()=>{
-
-alert("حدث خطأ أثناء الحفظ");
-
-});
-
-}
-
-</script>
-
 </body>
-
 </html>
