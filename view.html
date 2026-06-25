@@ -46,14 +46,34 @@ fetch(URL)
 .then(rows=>{
  const tbody=document.querySelector("#bookings tbody");
  rows.forEach(r=>{
-   const tr=document.createElement("tr");
-   r.forEach(c=>{
-      const td=document.createElement("td");
-      td.textContent=c;
-      tr.appendChild(td);
-   });
-   tbody.appendChild(tr);
- });
+
+  if(!r[0]) return;
+
+  const tr=document.createElement("tr");
+
+  r.forEach((c,i)=>{
+
+    const td=document.createElement("td");
+
+    if(i==1 && c){
+      td.textContent = new Date(c).toLocaleDateString("ar-EG");
+    }
+    else if(i==3 && c){
+      td.textContent = new Date(c).toLocaleTimeString("ar-EG",{
+        hour:"2-digit",
+        minute:"2-digit"
+      });
+    }
+    else{
+      td.textContent = c;
+    }
+
+    tr.appendChild(td);
+
+  });
+
+  tbody.appendChild(tr);
+
 });
 
 function filterTable(){
