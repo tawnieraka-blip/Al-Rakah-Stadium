@@ -175,23 +175,19 @@ padding:16px;
 
 <h1>حجوزات ملعب جمعية الراكة</h1>
 <label>اسم الفريق</label>
-
-<input id="team" placeholder="اكتب اسم الفريق">
+<input id="team" type="text" placeholder="اكتب اسم الفريق" required>
 
 <label>تاريخ الحجز</label>
-
-<input id="bookingDate" type="date">
+<input id="bookingDate" type="date" required>
 
 <label>وقت الدخول</label>
-
-<input id="checkIn" type="time">
+<input id="checkIn" type="time" required>
 
 <label>عدد ساعات اللعب</label>
-
-<input id="hours" type="number" placeholder="مثال: 2">
+<input id="hours" type="number" placeholder="مثال: 2" required min="1">
 
 <label>المبلغ</label>
-
+<input id="amount" type="number" placeholder="مثال: 200" required min="1">
 <input id="amount" type="number" placeholder="مثال: 200">
 
 <button onclick="saveBooking()">
@@ -207,15 +203,45 @@ padding:16px;
 const URL="https://script.google.com/macros/s/AKfycbyJ-DfkH3qwNsY6fDD1VgzwD0ECYryu-l8GSHkH5sErkBuniGoAlqizFPlrtkuP17PXdA/exec";
 
 function saveBooking(){
-
-let date=document.getElementById("bookingDate").value;
-
-let day=new Date(date).toLocaleDateString(
-
-"ar-SA",
-
-{weekday:"long"}
-
+const team = document.getElementById("team").value.trim();
+const date = document.getElementById("bookingDate").value;
+const checkIn = document.getElementById("checkIn").value;
+const hours = document.getElementById("hours").value;
+const amount = document.getElementById("amount").value;
+// التحقق من البيانات
+if(
+team==="" ||
+date==="" ||
+checkIn==="" ||
+hours==="" ||
+amount===""
+){
+    alert("⚠️ يرجى إدخال جميع البيانات");
+    return;
+}
+const day = new Date(date).toLocaleDateString("ar-SA",{
+    weekday:"long"
+});
+fetch(URL,{
+    method:"POST",
+    body:JSON.stringify({
+        team:team,
+        bookingDate:date,
+        day:day,
+        checkIn:checkIn,
+        hours:hours,
+        amount:amount
+    })
+})
+.then(r=>r.json())
+.then(()=>{
+    alert("✅ تم حفظ الحجز بنجاح");
+    window.location.href="index.html";
+})
+.catch(()=>{
+    alert("❌ حدث خطأ أثناء الحفظ");
+});
+}
 );
 
 fetch(URL,{
