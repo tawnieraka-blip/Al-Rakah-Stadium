@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عرض الحجوزات</title>
+<style>
+body{font-family:Tahoma,sans-serif;background:#eef3f8;margin:0;padding:20px}
+.container{max-width:1000px;margin:auto;background:#fff;padding:20px;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+h1{text-align:center;color:#0b57d0}
+input{width:100%;padding:12px;margin:15px 0;border:1px solid #ccc;border-radius:8px}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ddd;padding:10px;text-align:center}
+th{background:#0b57d0;color:#fff}
+tr:nth-child(even){background:#f8f8f8}
+a.button{display:inline-block;margin-top:20px;padding:12px 18px;background:#0b57d0;color:#fff;text-decoration:none;border-radius:8px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📋 عرض الحجوزات</h1>
+
+<input id="search" placeholder="ابحث باسم الفريق..." onkeyup="filterTable()">
+
+<table id="bookings">
+<thead>
+<tr>
+<th>الفريق</th>
+<th>التاريخ</th>
+<th>اليوم</th>
+<th>الدخول</th>
+<th>الساعات</th>
+<th>المبلغ</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<a class="button" href="index.html">⬅ العودة للرئيسية</a>
+
+</div>
+
+<script>
+const URL="ضع_رابط_Apps_Script_هنا";
+
+fetch(URL)
+.then(r=>r.json())
+.then(rows=>{
+ const tbody=document.querySelector("#bookings tbody");
+ rows.forEach(r=>{
+   const tr=document.createElement("tr");
+   r.forEach(c=>{
+      const td=document.createElement("td");
+      td.textContent=c;
+      tr.appendChild(td);
+   });
+   tbody.appendChild(tr);
+ });
+});
+
+function filterTable(){
+ let value=document.getElementById("search").value.toLowerCase();
+ document.querySelectorAll("#bookings tbody tr").forEach(tr=>{
+   tr.style.display=tr.innerText.toLowerCase().includes(value)?"":"none";
+ });
+}
+</script>
+</body>
+</html>
