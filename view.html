@@ -93,14 +93,8 @@ r.slice(0,6).forEach((c,i)=>{
       td.textContent = new Date(c).toLocaleDateString("ar-EG");
     }
     else if(i==3 && c){
-
-    const time = new Date(c);
-
-    td.textContent = time.toLocaleTimeString("ar-SA",{
-        hour:"numeric",
-        minute:"2-digit",
-        hour12:true
-    });
+  td.textContent = c;
+}
 
 }
     else{
