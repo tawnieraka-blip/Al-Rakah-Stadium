@@ -74,30 +74,28 @@ th,td{
 
 </div>
 <script>
-const URL = "https://script.google.com/macros/s/AKfycbxIqEAiJLWzPCiw-gi2PvejuNEk1AZOqFHJVlvhGTUQdfQqFNx-Y4_sobYueZRcOPnihg/exec";
+const URL = "https://script.google.com/macros/s/AKfycbx0h3E_0MRK4IEs95J1GxUveNeSnaoBDPfu4SZdHoTRNfU_IrVuR-mrq_zpxXwAXB3vlw/exec";
 fetch(URL)
 .then(r=>r.json())
 .then(rows=>{
  const tbody=document.querySelector("#bookings tbody");
- rows.forEach(r=>{
+ rows.forEach(r => {
 
-  if(!r[0]) return;
+  if (!r[0]) return;
 
-  const tr=document.createElement("tr");
+  const tr = document.createElement("tr");
 
-r.slice(0,6).forEach((c,i)=>{
- 
-    const td=document.createElement("td");
+  r.slice(0,6).forEach((c,i) => {
 
-    if(i==1 && c){
+    const td = document.createElement("td");
+
+    if (i == 1 && c) {
       td.textContent = new Date(c).toLocaleDateString("ar-EG");
     }
-    else if(i==3 && c){
-  td.textContent = c;
-}
-
-}
-    else{
+    else if (i == 3 && c) {
+      td.textContent = c;
+    }
+    else {
       td.textContent = c;
     }
 
@@ -106,6 +104,8 @@ r.slice(0,6).forEach((c,i)=>{
   });
 
   tbody.appendChild(tr);
+
+});
 
 });
 });
